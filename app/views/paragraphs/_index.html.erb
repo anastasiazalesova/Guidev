@@ -1,0 +1,12 @@
+<div>
+  <% @paragraphs.each do |paragraph| %>
+    <p><%= paragraph.body %></p>
+    <%= link_to 'Edit paragraph', edit_paragraph_path(paragraph) %>
+    <%= link_to 'Delete', paragraph, method: :delete, data: { confirm: 'Are you sure?' } %>
+    <br><br><br>
+  <% end %>
+</div>
+
+<br>
+
+<%= link_to 'Add new paragraph', new_paragraph_path %>

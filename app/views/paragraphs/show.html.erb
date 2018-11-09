@@ -1,0 +1,44 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Document:</strong>
+  <%= @paragraph.document.title %>
+</p>
+
+<p>
+  <strong>Current body:</strong>
+  <%= @paragraph.body %>
+</p>
+
+<p>
+  <strong>Previous Version:</strong>
+  <%= @paragraph.revision(:previous).body %>
+</p>
+
+<p><strong>What's the difference:</strong></p>
+<table>
+  <tbody>
+    <td><%= Diffy::SplitDiff.new(@paragraph.revision(:previous).body, @paragraph.body, :format => :html).left.html_safe%></td>
+    <td><%= Diffy::SplitDiff.new(@paragraph.revision(:previous).body, @paragraph.body, :format => :html).right.html_safe%></td>
+  </tbody>
+</table>
+
+<!-- <p>
+  <strong>What's the difference:</strong>
+  <%= Diffy::Diff.new(@paragraph.revision(:previous).body, @paragraph.body).to_s(:html).html_safe%>
+</p> -->
+
+<br><hr><br>
+
+<div class="revision">
+  <ol>
+    <% @paragraph.revisions.each do |revision| %>
+      <li><%= revision.body %></li>
+    <% end %>
+  </ol>
+</div>
+
+<br><hr><br>
+
+<%= link_to 'Edit', edit_paragraph_path(@paragraph) %> |
+<%= link_to 'Back', paragraphs_path %>

@@ -1,0 +1,27 @@
+<%= form_for(paragraph) do |f| %>
+  <% if paragraph.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(paragraph.errors.count, "error") %> prohibited this paragraph from being saved:</h2>
+
+      <ul>
+      <% paragraph.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :document_id %>
+    <%=  select("paragraph", "document_id", Document.all.collect {|d| [d.title, d.id] }, { include_blank: false }) %>
+  </div>
+
+  <div class="field">
+    <%= f.label :body %>
+    <%= f.text_area :body %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
